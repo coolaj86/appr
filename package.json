@@ -1,0 +1,24 @@
+{
+  "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info)",
+  "name": "appr",
+  "description": "An HTML5 App Store",
+  "version": "0.1.0",
+  "homepage": "http://appr.coolaj86.info",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coolaj86/appr.git"
+  },
+  "main": "lib/index",
+  "scripts": {
+    "test": "node lib/index"
+  },
+  "engines": {
+    "node": ">= 0.6"
+  },
+  "dependencies": {
+      "semver": "1.x",
+    , "steve": "0.5.x"
+    , "ahr2": "2.x"
+  },
+  "devDependencies": {}
+}
