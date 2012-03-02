@@ -13,6 +13,7 @@
   "devDependencies": {
     "connect": "~1.8.5",
     "ahr2": "2.x",
-    "semver": "1.0.x"
+    "semver": "1.0.x",
+    "tar": "0.1.x"
   }
 }

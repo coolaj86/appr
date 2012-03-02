@@ -5,10 +5,13 @@
     , fs = require('fs')
     , semver = require('semver')
     , request = require('ahr2')
-    , server = "http://localhost:55075"
+    , tar = require('tar')
+    , zlib = require('zlib')
+    , server = "http://localhost:3999"
     , path = __dirname
     , port = 1337
     , curVer = "0.0.1"
+    , newVer
     , args = process.argv
     ;
 
@@ -18,9 +21,12 @@
       console.log('Could not contact update server. Going it alone...');
       return;
     }
+    console.log('version from server =', data.result);
 
     if(semver.gt(data.result, curVer)) {
-      console.log('Server has a new version. Should update now!');
+      newVer = data.result;
+      console.log('getting new version!');
+      request.get(server + "/releases/" + newVer + "/browser.tgz").when(pullAndUpdate);
     }
   });
 
@@ -35,6 +41,33 @@
     } else {
       path = __dirname + '/' + args[3];
     }
+  }
+  
+  function pullAndUpdate(err, ahr, data) {
+    console.log('gunzipping!');
+    zlib.gunzip(data, saveTheTar);
+    function saveTheTar(err, tarball) {
+      console.log('about to write');
+      fs.open(__dirname + '/downloads/' + newVer + '.tar', 'w', parseInt('0644', 8), function(err, fd) {
+        if(err) {
+          console.log("Error opening file:", err);
+          return;
+        } 
+        console.log('file open!');
+        console.log('fd', fd);
+        console.log('tarball', tarball);
+        console.log('tarball.length', tarball.length);
+        fs.write(fd, tarball, 0, tarball.length, null, function(err, written, buffer) {
+          if(err) {
+            console.error(err);
+            return;
+          }
+          console.log('File Written!!');
+        });
+      });
+
+    }
+    
   }
   
   connect.createServer(
