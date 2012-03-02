@@ -16,7 +16,7 @@
     "node": ">= 0.6"
   },
   "dependencies": {
-      "semver": "1.x",
+      "semver": "1.x"
     , "steve": "0.5.x"
     , "ahr2": "2.x"
   },
