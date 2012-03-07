@@ -1,0 +1,23 @@
+{
+  "author": "Eric Jacobs <eric@chomp.us> (http://techosaur.us/)",
+  "name": "ApprClient",
+  "description": "Appr client stuff (browser).",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SpotterRF/appr.git"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": ">= 0.6"
+  },
+  "dependencies": {
+      "ahr2": "2.2.x"
+    , "forEachAsync": "2.x"
+    , "domready": "0.2.x"
+    , "bonzo": "1.x"
+    , "qwery": "3.x"
+    , "bean": "0.4.x"
+  },
+  "devDependencies": {}
+}
