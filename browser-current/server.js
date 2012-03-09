@@ -5,8 +5,8 @@
     , fs = require('fs')
     , semver = require('semver')
     , request = require('ahr2')
-    , installer = require('./server/installer')
-    , pullRoute = require('./server/pull-route')
+    , installer = require('./installer')
+    , pullRoute = require('./router')
     , server = "http://localhost:3999"
     , publicPath = __dirname
     , port = 1337

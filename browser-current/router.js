@@ -4,6 +4,7 @@
   var fs = require('fs')
     , forEachAsync = require('forEachAsync')
     , request = require('ahr2')
+    , installer = require('./installer');
     ;
 
   function getTarget() {
@@ -28,7 +29,7 @@
     function nabLocalList(req,res) {
       var installed = []
         ;
-      fs.readdir(__dirname + '/../apps/vhosts/', function(err, files) {
+      fs.readdir(__dirname + '/apps/vhosts/', function(err, files) {
         if(err) {
           console.error("Problem reading vhost directory:", err);
           res.end(JSON.stringify({success: false, message: err}));
@@ -42,9 +43,6 @@
           res.end(JSON.stringify({success: true, data: installed}));
         });
       });
-
-      
-      console.log('dirname:', __dirname);
     }
 
     function findTarball(req,res) {

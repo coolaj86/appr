@@ -7,6 +7,7 @@
     , zlib = require('zlib')
     , semver = require('semver')
     , exec = require('child_process').exec
+    , request = require('ahr2')
     ;
 
 
@@ -50,9 +51,10 @@
 
     function untarAndInstall() {
       var packagePath
+        , tempPath = __dirname + '/apps/vhosts/'
         ;
       if(!selfUpdate) {
-        packagePath = __dirname + '/apps/vhosts/' + packageName + '.local.apps.spotter360.org/';
+        packagePath = tempPath + packageName + '.local.apps.spotterrf.com/';
       } else {
         packagePath = __dirname;
       }
@@ -62,11 +64,12 @@
       }
 
       fs.createReadStream(__dirname + '/downloads/' + packageName + '-' + newVer + '.tar')
-        .pipe(tar.Extract({path: packagePath}))
+        .pipe(tar.Extract({path: tempPath}))
         .on("error", function(er) {
           console.error("error during extraction:", er);
         })
         .on("end", function() {
+          fs.renameSync(tempPath + '/package/', packagePath);
           console.log(packageName + ' is installed!\nNow installing its dependencies.');
           installDeps(packageName);
           if(selfUpdate) {
@@ -79,7 +82,7 @@
       var child = exec("cd "  + __dirname
                               + "/apps/vhosts/"
                               + packageName
-                              + ".local.apps.spotter360.org && npm install"
+                              + ".local.apps.spotterrf.com && npm install"
                     , function(error, stdout, stderr) {
         if(error) {
           console.error("Problem installing dependencies: ", error);
