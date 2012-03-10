@@ -1,0 +1,50 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.collapse-label {
+    color: #f29d18;
+    background-color: #0f0f0f;
+}
+
+.collapse-label:hover {
+    color: #0f0f0f;
+    background-color: #f29d18;
+}
+
+div.collapsible div {
+    color: white;
+}
+
+select, option, input[type='checkbox'] ~ label, input[type='radio'] ~ label, div.collapsible div {
+    color: white;
+}
+
+select, option {
+    background-color: #0f0f0f;
+}
+
+option:hover {
+    color: #0f0f0f;
+    background-color: #f29d18;
+}
+
+.button {
+    background-color: #0f0f0f;
+    border: 2px solid #1f1f1f;
+    color: #f29d18;
+}
+
+.button:hover {
+    background-color: #191919;
+}
+
+.log-modal {
+    background-color: rgba(165, 42, 42, .5);
+    color: white;
+}
+
+.chkbox {
+    background-color: #000000;
+}

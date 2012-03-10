@@ -1,0 +1,91 @@
+#settings-div.modal-div
+  .collapsible
+    label.collapse-label General Settings
+    div
+      label Spotter:
+      input#spotter-addr(type='text')
+      br
+      //- TODO: remove this. Dynamically??
+      label Model:
+      select#spotter-model
+        option(value='80') M80
+        option(value='600') M600
+      br
+      label Adjust Azimuth:
+      button.adj-boresight(data-direction='left') &larr;
+      label#boresight
+      button.adj-boresight(data-direction='right') &rarr;
+      br
+      label Track Alignment:
+      button.adj-angle-calibration(data-direction='left') &larr;
+      label#angle-calibration
+      button.adj-angle-calibration(data-direction='right') &rarr;
+  .collapsible
+    label.collapse-label Grid Settings
+    div
+      label Line width:
+      select#style-grid-width
+        option(value='1') Thin
+        option(value='2') Medium
+        option(value='3') Thick
+        option(value='5') Very Thick
+      //-
+        br
+        input#style-grid-font-normal(type='radio',name='style-grid-fontweight',value='normal')
+        label(for='style-grid-font-normal') Normal
+        input#style-grid-font-bold(type='radio',name='style-grid-fontweight',value='bold')
+        label(for='style-grid-font-bold') Bold
+      //-
+        input#style-grid-font-bolder(type='radio',name='style-grid-fontweight',value='bolder')
+        label(for='style-grid-font-bolder') Extra Bold
+      br
+      label Font Size:
+      select#style-grid-font-size
+        option(value='12pt') 12pt
+        option(value='16pt') 16pt
+        option(value='20pt') 20pt
+        option(value='24pt') 24pt
+      br
+      label Scale:
+      select#scale
+        option(value='50') 50 meters
+        option(value='100') 100 meters
+        option(value='150') 150 meters
+        option(value='200') 200 meters
+        option(value='250') 250 meters
+  .collapsible
+    label.collapse-label Radial Settings
+    div
+      label Angles in:
+      select#radial
+        option(value='degrees') degrees
+        //- option(value='radians') radians
+        option(value='mils') mils
+      br
+      label Angle Step:
+      select#radial-step-degrees.radial-step
+        option(value='10') 10°
+        option(value='15') 15°
+        option(value='30') 30°
+        option(value='45') 45°
+      select#radial-step-radians.radial-step
+        option(value='10') π / 18 rad
+        option(value='15') π / 12 rad
+        option(value='30') π / 6 rad
+        option(value='45') π / 4 rad
+      select#radial-step-mils.radial-step
+        option(value='5.625') 100 mils
+        option(value='11.25') 200 mils
+        option(value='22.5') 400 mils
+        option(value='45') 800 mils
+      br
+      label Angles relative to:
+      br
+      input#angle-relative-boresight(type='radio',name='angle-relative',value='boresight')
+      label(for='angle-relative-boresight') Boresight
+      input#angle-relative-north(type='radio',name='angle-relative',value='north')
+      label(for='angle-relative-north') North
+  div#settings-cancel.modal-button.button.clickable
+    div Back
+  div#settings-defaults.modal-button.button.clickable
+    div Factory Defaults

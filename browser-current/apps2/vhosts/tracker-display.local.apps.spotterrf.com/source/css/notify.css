@@ -1,0 +1,29 @@
+#notify-div {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    max-width: 50%;
+    min-width: 10%;
+    z-index: 20000;
+}
+
+.notification {
+    color: #ffff00;
+    padding: 1px 6px 5px 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    border-radius: 10px;
+}
+
+.notification:hover {
+    cursor: pointer;
+    background-color: rgba(131, 148, 150, .3);
+}
+
+.notification span {
+  margin-left: 10px;
+}
+
+.notification span {
+  margin-left: 10px;
+}

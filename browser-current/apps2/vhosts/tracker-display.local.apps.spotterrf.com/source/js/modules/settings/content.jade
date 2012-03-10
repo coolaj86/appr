@@ -1,0 +1,59 @@
+#style-div.modal-div
+  .collapsible
+    .collapse-label General
+      div
+        label Theme:
+        select#style-theme
+          option(value='night') Night
+          option(value='day') Day
+  .collapsible
+    label.collapse-label Components
+    div
+      input#showScale(type='checkbox')
+      label(for='showScale') Show Labels on Boresight
+      br
+      input#showTrail(type='checkbox')
+      label(for='showTrail') Show Trail
+      br
+      input#showTrackID.dep-track-labels(type='checkbox')
+      label(for='showTrackID') Show TrackID
+      br
+      input#showCoordinates.dep-track-labels(type='checkbox')
+      label(for='showCoordinates') Show Coordinates
+      //-
+        br
+        input#showSpeed.dep-track-labels(type='checkbox')
+        label(for='showSpeed') Show Speed
+        br
+        label &nbsp;&nbsp;Units&nbsp;&nbsp;
+        select#speedUnits
+          option(value='m/s') M/S
+          option(value='mph') MPH
+          option(value='kph') KPH
+  .collapsible
+    .collapse-label Tracks
+      div
+        label Size:
+        select#style-track-size
+          option(value='3') Small
+          option(value='5') Medium
+          option(value='7') Large
+          option(value='10') Very Large
+        br
+        label Line width:
+        select#style-track-width
+          option(value='1') Thin
+          option(value='2') Medium
+          option(value='3') Thick
+          option(value='5') Very Thick
+        br
+        label Display Track Information:
+        br
+        &nbsp;&nbsp;
+        input#displayAllTracks.displayTrackInfo(name='displayTrackInfo',type='radio',value='always')
+        label(for='displayAllTracks') Always
+        &nbsp;&nbsp;
+        input#displayOnClick.displayTrackInfo(name='displayTrackInfo',type='radio',value='click')
+        label(for='displayOnClick') On Click
+  div#style-close.modal-button.button.clickable
+    div Back

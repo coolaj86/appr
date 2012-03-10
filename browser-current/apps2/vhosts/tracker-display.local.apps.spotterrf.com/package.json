@@ -1,0 +1,31 @@
+{
+  "author": "T. Jameson Little",
+  "name": "tracker-display",
+  "description": "Tracker display for a radar unit running in a browser",
+  "version": "3.0.7",
+  "repository": {
+      "type": "git"
+  },
+  "main": "testSuiteServer.js",
+  "engines": {
+      "node": "*"
+  },
+  "config": {
+      "port": 3500
+  },
+  "scripts": {
+  },
+  "dependencies": {
+      "connect": "~1",
+      "events.node": "~0.4",
+      "connect-form": "~0.2",
+      "file-api": "~0.9",
+      "forEachAsync": "~2.1",
+      "futures": "~2.3",
+      "ahr2": "2.0.4",
+      "mime": "~1.2",
+      "remedial": "~1.0",
+      "require-kiss": "~1.0"
+  },
+  "devDependencies": {}
+}
