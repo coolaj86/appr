@@ -8,7 +8,12 @@
     , semver = require('semver')
     , exec = require('child_process').exec
     , request = require('ahr2')
+    , pathSep = '/'
     ;
+
+  if(process.platform === 'win32') {
+    pathSep = '\\'
+  }
 
 
   function installer(tarballLocation, packageName, newVer, selfUpdate, responder) {
@@ -52,10 +57,10 @@
 
     function untarAndInstall() {
       var packagePath
-        , tempPath = __dirname + '/apps/vhosts/'
+        , tempPath = __dirname + pathSep + 'apps' + pathSep + 'vhosts' + pathSep
         ;
       if(!selfUpdate) {
-        packagePath = tempPath + packageName + '.local.apps.spotterrf.com/';
+        packagePath = tempPath + packageName + '.local.apps.spotterrf.com' + pathSep;
       } else {
         packagePath = __dirname;
       }
@@ -64,14 +69,14 @@
         fs.mkdirSync(packagePath, parseInt('0755', 8));
       }
 
-      fs.createReadStream(__dirname + '/downloads/' + packageName + '-' + newVer + '.tar')
+      fs.createReadStream(__dirname + pathSep + 'downloads' + pathSep + packageName + '-' + newVer + '.tar')
         .pipe(tar.Extract({path: tempPath}))
         .on("error", function(er) {
           console.error("error during extraction:", er);
           responder.end(JSON.stringify({success: false, data: er}));
         })
         .on("end", function() {
-          fs.renameSync(tempPath + '/package/', packagePath);
+          fs.renameSync(tempPath + pathSep + 'package' + pathSep, packagePath);
           console.log(packageName + ' is installed!\nNow installing its dependencies.');
           installDeps(packageName);
           if(selfUpdate) {
@@ -82,7 +87,7 @@
 
     function installDeps(packageName) {
       var child = exec("cd "  + __dirname
-                              + "/apps/vhosts/"
+                              + pathSep + "apps" + pathSep + "vhosts" + pathSep
                               + packageName
                               + ".local.apps.spotterrf.com && npm install"
                     , function(error, stdout, stderr) {
