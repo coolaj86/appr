@@ -14,6 +14,12 @@
     , args = process.argv
     ;
 
+
+  // Check for Windows, set publicPath appropriately
+  if(process.platform === 'win32') {
+    publicPath = __dirname + '/windows'
+  }
+
   console.log('Checking for updates...');
   request.get(server + "/version").when(function(err, ahr, data) {
     if(err || data.error == true) {
