@@ -9,10 +9,12 @@
     , exec = require('child_process').exec
     , request = require('ahr2')
     , pathSep = '/'
+    , ಠ_ಠ = false
     ;
 
   if(process.platform === 'win32') {
-    pathSep = '\\'
+    ಠ_ಠ = true;
+    pathSep = '\\';
   }
 
 
@@ -31,7 +33,7 @@
     function saveTheTar(err, tarball) {
       console.log('about to write');
       fs.open(__dirname
-              + '/downloads/'
+              + pathSep + 'downloads' + pathSep
               + packageName
               + '-'
               + newVer
@@ -66,9 +68,8 @@
       }
       if(!path.exists(packagePath)) {
         console.log('PACKAGEPATH', packagePath);
-        fs.mkdirSync(packagePath, parseInt('0755', 8));
+        //fs.mkdirSync(packagePath, parseInt('0755', 8));
       }
-
       fs.createReadStream(__dirname + pathSep + 'downloads' + pathSep + packageName + '-' + newVer + '.tar')
         .pipe(tar.Extract({path: tempPath}))
         .on("error", function(er) {

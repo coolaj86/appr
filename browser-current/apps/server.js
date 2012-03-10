@@ -10,6 +10,7 @@
     , apps = []
     , servers = []
     , dirs = fs.readdirSync(__dirname + "/vhosts")
+    , secretReboot = {}
     ;
 
   function sortByHostnameLength(a, b) {
@@ -88,7 +89,20 @@
 
   dirs.forEach(eachHost);
 
+  secretReboot.server = connect(
+    connect.router(function(app) {
+      app.post('/secret/reboot/path', secretRebooterMan);
+      function secretRebooterMan(req,res) {
+        res.end(JSON.stringify({ success: true, message: 'rebooting!'}));
+        process.exit();
+      }
+    })
+  )
+  secretReboot.hostname = "secret-reboot.local.apps.spotterrf.com";
+
+  apps.push(secretReboot);
   apps.sort(sortByHostnameLength);
+
   apps.forEach(function (app) {
       var server;
 
