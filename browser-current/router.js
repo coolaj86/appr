@@ -4,7 +4,9 @@
   var fs = require('fs')
     , forEachAsync = require('forEachAsync')
     , request = require('ahr2')
-    , installer = require('./installer');
+    , installer = require('./installer')
+    , createSequence = require('sequence')
+    , sequence = createSequence()
     ;
 
   function getTarget() {
@@ -15,7 +17,6 @@
     app.get("/applist", nabPackageList);
     app.get("/installed", nabLocalList);
     app.post("/install/:packageName", findTarball);
-
     function nabPackageList(req,res) {
       request.get(getTarget()).when(function(err, ahr, data) {
         if(err) {
@@ -25,7 +26,6 @@
         res.end(JSON.stringify(data));
       });
     }
-
     function nabLocalList(req,res) {
       var installed = []
         ;
@@ -59,14 +59,10 @@
             return;
           }
         }
-        installer(data.dist.tarball, req.params.packageName, data.version);
-        res.end(JSON.stringify({success: true, message: "Installing now."}));
+        installer(data.dist.tarball, req.params.packageName, data.version, false, res);
       });
     }
     module.exports = app;
-  } 
-
+  }
   module.exports = packageApp;
-
-
 }());

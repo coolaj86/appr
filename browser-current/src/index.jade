@@ -2,13 +2,29 @@
 html
   head
     script(src="appsnap.js")
+    link(rel="stylesheet", type="text/css", href="style.css")
   body
-    form#js-search-apps
-      input.js-search-box 
-      button Search
-    .available
-      span.headrow Available Apps:
-      .js-app-list
-    .installed
-      span.headrow Installed Apps:
-      .js-currently-installed
+    //
+      form#js-search-apps
+        input.js-search-box 
+        button Search
+    #header
+      .top_wrap
+        img#logo(src="images/logo.png")
+        .page_head
+          | Apps!
+    #container
+      table.doc_columns
+      tbody
+        tr
+          td.menu_column
+            menu
+              ul
+          td.content_column
+            #js-applists
+              .available
+                h2 Available Apps:
+                ul.js-app-list
+              .installed
+                h2 Installed Apps:
+                ul.js-currently-installed

@@ -11,7 +11,7 @@
     ;
 
 
-  function installer(tarballLocation, packageName, newVer, selfUpdate) {
+  function installer(tarballLocation, packageName, newVer, selfUpdate, responder) {
     if(!selfUpdate) {
       request.get(tarballLocation).when(pullAndSave);
     } else {
@@ -41,6 +41,7 @@
         fs.write(fd, tarball, 0, tarball.length, null, function(err, written, buffer) {
           if(err) {
             console.error(err);
+            responder.end(JSON.stringify({success: false, data: err}));
             return;
           }
           console.log('File Written!!');
@@ -67,6 +68,7 @@
         .pipe(tar.Extract({path: tempPath}))
         .on("error", function(er) {
           console.error("error during extraction:", er);
+          responder.end(JSON.stringify({success: false, data: er}));
         })
         .on("end", function() {
           fs.renameSync(tempPath + '/package/', packagePath);
@@ -90,6 +92,7 @@
         }
         console.log(stdout);
         console.log(stderr);
+        responder.end(JSON.stringify({success: true, data: packageName + " installed!"}));
       });
      
    

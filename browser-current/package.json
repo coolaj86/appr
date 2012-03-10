@@ -15,6 +15,7 @@
     "ahr2": "2.x",
     "semver": "1.0.x",
     "tar": "0.1.x",
-    "forEachAsync": "2.1.x"
+    "forEachAsync": "2.1.x",
+    "sequence":"2.1.x"
   }
 }

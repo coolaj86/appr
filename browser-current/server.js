@@ -8,7 +8,7 @@
     , installer = require('./installer')
     , pullRoute = require('./router')
     , server = "http://localhost:3999"
-    , publicPath = __dirname
+    , publicPath = __dirname + '/public'
     , port = 1337
     , curVer = "0.0.1"
     , args = process.argv
