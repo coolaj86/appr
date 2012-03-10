@@ -1,4 +1,4 @@
 node_modules/
 browser-current/downloads/*
-browser-current/apps/*
+browser-current/apps/vhosts/*
 browser-current/public/*
