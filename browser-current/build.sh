@@ -7,4 +7,4 @@ mv *.html ../public/
 mv pakmanaged.js ../public/appsnap.js
 cp -R static/ ../public/
 cd -
-cp -R ./public/* ./windows/
+cp -R ./public/ ./windows/
