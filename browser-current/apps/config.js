@@ -6,6 +6,6 @@
     , env: "production"
     , user: process.env['USER'] || process.env['USERNAME']
     //  http://user:pass@anything.server.net/github-hook
-    , githookAuth: "username:password"
+    , githookAuth: "spotter:spotterappsrestart"
   };
 }());

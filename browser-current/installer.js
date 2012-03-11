@@ -99,6 +99,8 @@
         console.log(stdout);
         console.log(stderr);
         responder.end(JSON.stringify({success: true, data: packageName + " installed!"}));
+        console.log('request to restart is about to fire!!!');
+        request.post('http://spotter:spotterappsrestart@' + packageName + '.local.apps.spotterrf.com:8080/github-hook');
       });
      
    
