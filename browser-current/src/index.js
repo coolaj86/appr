@@ -13,7 +13,7 @@
     $('#js-applists').hide();
     sequence
       .then(function(next) {
-        request.get("http://localhost:1337/installed").when( function(err, ahr, data) {
+        request.get("http://localhost:7770/installed").when( function(err, ahr, data) {
           data = checkResponse(err, data);
           if(!data) { console.error("bad data!"); return; }
           appendList('.js-currently-installed', data.data);
@@ -23,7 +23,7 @@
       .then(function(next, alreadyInstalled) {
         var availableApps
           ;
-        request.get("http://localhost:1337/applist").when( function(err, ahr, data) {
+        request.get("http://localhost:7770/applist").when( function(err, ahr, data) {
           data = checkResponse(err, data);
           if(!data) { console.error("bad data!"); return; }
           availableApps = _.difference(data, alreadyInstalled);
@@ -80,7 +80,7 @@
       , goButton = '<a class="gobutton" href="http://' + this.dataset.appname + '.local.apps.spotterrf.com:8080"/>Go!</a>';
       ;
     somewhere.removeClass('js-available').addClass('installing');
-    request.post('http://localhost:1337/install/'+ this.dataset.appname).when(function (err, ahr, data) {
+    request.post('http://localhost:7770/install/'+ this.dataset.appname).when(function (err, ahr, data) {
       data = checkResponse(err, data);
       if(!data) { console.error("bad data!"); return; }
       console.log('installed!', data);
