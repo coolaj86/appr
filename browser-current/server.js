@@ -7,7 +7,7 @@
     , request = require('ahr2')
     , installer = require('./installer')
     , pullRoute = require('./router')
-    , server = "http://localhost:3999"
+    , server = "http://apps.spotterrf.com:3999"
     , publicPath = __dirname + '/public'
     , port = 1337
     , curVer = "0.0.1"
