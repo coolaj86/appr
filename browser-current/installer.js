@@ -59,12 +59,14 @@
 
     function untarAndInstall() {
       var packagePath
-        , tempPath = __dirname + pathSep + 'apps' + pathSep + 'vhosts' + pathSep
+        , tempPath
         ;
       if(!selfUpdate) {
         packagePath = tempPath + packageName + '.local.apps.spotterrf.com' + pathSep;
+        tempPath = __dirname + pathSep + 'apps' + pathSep + 'vhosts' + pathSep;
       } else {
         packagePath = __dirname;
+        tempPath = __dirname;
       }
       if(!path.exists(packagePath)) {
         console.log('PACKAGEPATH', packagePath);

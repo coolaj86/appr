@@ -30,7 +30,7 @@
       console.log("New version detected... downloading and installing!");
       //newVer = data.result;
 
-      installer(null, browser, data.result, true, null, server);
+      installer(null, "browser", data.result, true, null, server);
     }
   });
 
