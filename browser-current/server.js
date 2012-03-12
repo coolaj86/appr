@@ -14,7 +14,6 @@
     , args = process.argv
     ;
 
-
   // Check for Windows, set publicPath appropriately
   if(process.platform === 'win32') {
     publicPath = __dirname + '/windows'
@@ -31,7 +30,7 @@
       console.log("New version detected... downloading and installing!");
       //newVer = data.result;
 
-      installer(null, null, data.result, true, null, server);
+      installer(null, browser, data.result, true, null, server);
     }
   });
 
