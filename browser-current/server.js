@@ -30,7 +30,8 @@
     if(semver.gt(data.result, curVer)) {
       console.log("New version detected... downloading and installing!");
       //newVer = data.result;
-      installer(null, null, data.result.version, true);
+
+      installer(null, null, data.result, true, null, server);
     }
   });
 

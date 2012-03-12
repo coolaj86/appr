@@ -18,7 +18,7 @@
   }
 
 
-  function installer(tarballLocation, packageName, newVer, selfUpdate, responder) {
+  function installer(tarballLocation, packageName, newVer, selfUpdate, responder, server) {
     if(!selfUpdate) {
       request.get(tarballLocation).when(pullAndSave);
     } else {
@@ -46,7 +46,7 @@
           return;
         }
         fs.write(fd, tarball, 0, tarball.length, null, function(err, written, buffer) {
-          if(err) {
+          if(err && !selfUpdate) {
             console.error(err);
             responder.end(JSON.stringify({success: false, data: err}));
             return;
@@ -74,14 +74,17 @@
         .pipe(tar.Extract({path: tempPath}))
         .on("error", function(er) {
           console.error("error during extraction:", er);
-          responder.end(JSON.stringify({success: false, data: er}));
+          if(!selfUpdate) {
+            responder.end(JSON.stringify({success: false, data: er}));
+          }
         })
         .on("end", function() {
-          fs.renameSync(tempPath + pathSep + 'package' + pathSep, packagePath);
-          console.log(packageName + ' is installed!\nNow installing its dependencies.');
-          installDeps(packageName);
           if(selfUpdate) {
             process.exit();
+          } else {
+            fs.renameSync(tempPath + pathSep + 'package' + pathSep, packagePath);
+            console.log(packageName + ' is installed!\nNow installing its dependencies.');
+            installDeps(packageName);
           }
         })
     }
@@ -98,9 +101,11 @@
         }
         console.log(stdout);
         console.log(stderr);
-        responder.end(JSON.stringify({success: true, data: packageName + " installed!"}));
-        console.log('request to restart is about to fire!!!');
-        request.post('http://spotter:spotterappsrestart@' + packageName + '.local.apps.spotterrf.com:8080/github-hook');
+        if(!selfUpdate) {
+          responder.end(JSON.stringify({success: true, data: packageName + " installed!"}));
+          console.log('request to restart is about to fire!!!');
+          request.post('http://spotter:spotterappsrestart@' + packageName + '.local.apps.spotterrf.com:8080/github-hook');
+        }
       });
      
    
