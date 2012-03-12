@@ -10,7 +10,7 @@
     , server = "http://apps.spotterrf.com:3999"
     , publicPath = __dirname + '/public'
     , port = 1337
-    , curVer = "0.0.1"
+    , curVer = "0.0.2"
     , args = process.argv
     ;
 
@@ -29,7 +29,6 @@
     if(semver.gt(data.result, curVer)) {
       console.log("New version detected... downloading and installing!");
       //newVer = data.result;
-
       installer(null, "browser", data.result, true, null, server);
     }
   });
