@@ -1,10 +1,10 @@
-cd src
+PUBLICTARGET="../web-client/"
+
 pakmanager build
 jade *.jade
 lessc *.less > style.css
-mv *.css ../public/
-mv *.html ../public/
-mv pakmanaged.js ../public/appsnap.js
-cp -R static/ ../public/
-cd -
-cp -R ./public/ ./windows/
+mv *.css ${PUBLICTARGET}/
+mv *.html ${PUBLICTARGET}/
+mv pakmanaged.js ${PUBLICTARGET}/appsnap.js
+cp -R static/ ${PUBLICTARGET}/
+#cp -R ./public/ ./windows/
