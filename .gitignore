@@ -1,4 +1,5 @@
 node_modules/
+.*.sw*
 browser-current/downloads/*
 browser-current/apps/vhosts/*
 browser-current/public/*
