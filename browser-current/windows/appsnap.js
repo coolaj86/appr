@@ -5969,16 +5969,17 @@ var global = Function("return this;")()
     var $ = require("ender")
       , request = require("ahr2")
       , forEachAsync = require("forEachAsync")
+      , _ = require('underscore')
       , createSequence = require('sequence')
       , sequence = createSequence()
-      , _ = require('underscore')
+      , port = 7770
       ;
   
     function populateLists() {
       $('#js-applists').hide();
       sequence
         .then(function(next) {
-          request.get("http://localhost:7770/installed").when( function(err, ahr, data) {
+          request.get("http://localhost:" + port + "/installed").when( function(err, ahr, data) {
             data = checkResponse(err, data);
             if(!data) { console.error("bad data!"); return; }
             appendList('.js-currently-installed', data.data);
@@ -5988,7 +5989,7 @@ var global = Function("return this;")()
         .then(function(next, alreadyInstalled) {
           var availableApps
             ;
-          request.get("http://localhost:7770/applist").when( function(err, ahr, data) {
+          request.get("http://localhost:" + port + "/applist").when( function(err, ahr, data) {
             data = checkResponse(err, data);
             if(!data) { console.error("bad data!"); return; }
             availableApps = _.difference(data, alreadyInstalled);
@@ -6010,13 +6011,11 @@ var global = Function("return this;")()
       }
   
       appList.forEach(function(appName, index) {
-        var goButton = '<a class="gobutton" href="http://' + appName + '.local.apps.spotterrf.com:8080/">Go!</a>'
-          , html = '<li class="' + extraClasses + '" data-appname="' + appName + '">' + appName + '</li>'
+        var html = '<a class="gobutton" href="http://' + appName + '.local.apps.spotterrf.com:'+ port +'/">'
+                 + '   <li class="app ' + extraClasses + '" data-appname="' + appName + '">' + appName + '</li>'
+                 + '</a>'
           ;
         $(target).append(html);
-        if(/installed/g.test(target)) {
-          $(target).append(goButton);
-        }
       });
     }
   
@@ -6041,24 +6040,29 @@ var global = Function("return this;")()
     }
   
     function installApp(ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
       var somewhere = $(this)
-        , goButton = '<a class="gobutton" href="http://' + this.dataset.appname + '.local.apps.spotterrf.com:8080"/>Go!</a>';
+        , goButton = '<a class="gobutton" href="http://' + this.dataset.appname + '.local.apps.spotterrf.com:' + port + '"/>Go!</a>';
         ;
-      somewhere.removeClass('js-available').addClass('installing');
-      request.post('http://localhost:7770/install/'+ this.dataset.appname).when(function (err, ahr, data) {
+      somewhere.removeClass('js-available').addClass('installing').addClass('js-installing');
+      request.post('http://localhost:' + port + '/install/'+ this.dataset.appname).when(function (err, ahr, data) {
         data = checkResponse(err, data);
         if(!data) { console.error("bad data!"); return; }
         console.log('installed!', data);
         somewhere.remove();
-        somewhere.removeClass('installing').addClass('installed');
-        $('.js-currently-installed').append(somewhere);
-        $('.js-currently-installed').append(goButton);
-  
+        appendList('.js-currently-installed', ['tracker-display'], ['freshly-installed']);
       });
+    }
+  
+    function doNothing(ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
     }
   
     function assignHandlers() {
       $('body').delegate('.js-available', 'click', installApp);
+      $('body').delegate('.js-installing', 'click', doNothing);
     }
   
     $.domReady(function() {

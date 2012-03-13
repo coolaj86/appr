@@ -105,7 +105,8 @@
         if(!selfUpdate) {
           responder.end(JSON.stringify({success: true, data: packageName + " installed!"}));
           console.log('request to restart is about to fire!!!');
-          request.post('http://spotter:spotterappsrestart@' + packageName + '.local.apps.spotterrf.com:8080/github-hook');
+    //      request.post('http://spotter:spotterappsrestart@' + packageName + '.local.apps.spotterrf.com:8080/github-hook');
+          process.exit();
         }
       });
      

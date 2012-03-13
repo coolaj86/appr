@@ -9,9 +9,12 @@
     , pullRoute = require('./router')
     , server = "http://apps.spotterrf.com:3999"
     , publicPath = __dirname + '/public'
-    , port = 1337
+    , port = 7770
     , curVer = "0.0.2"
     , args = process.argv
+    , vhostDir = __dirname + '/apps/vhosts'
+    , vhosts = require('./apps/server.js').create(vhostDir)
+    , app
     ;
 
   // Check for Windows, set publicPath appropriately
@@ -46,12 +49,13 @@
     }
   }
 
-  connect.createServer(
-      connect.router(pullRoute)
-    , connect.static(publicPath)
-    , connect.directory(publicPath)
-  ).listen(port);
-
+  app = connect()
+    .use(vhosts)
+    .use(connect.router(pullRoute))
+    .use(connect.static(publicPath))
+    .use(connect.directory(publicPath))
+    ;
+  app.listen(port);
   console.log("Now serving on port " + port + ".");
 
 }());
