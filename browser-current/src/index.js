@@ -100,9 +100,24 @@
     $('body').delegate('.js-installing', 'click', doNothing);
   }
 
-  $.domReady(function() {
+  // Check that appr is installed.
+  function isInstalled() {
+    $('#not-installed').hide();
+    request.get('http://localhost:' + port + '/alive', null, { timeout: 1000 }).when(function(err, ahr, data) {
+      data = checkResponse(err, data);
+      if(!data || !data.success) {
+        $('#not-installed').show();
+        return false;
+      }
+      showApps();
+    });
+  }
+
+  function showApps() {
     populateLists();
     assignHandlers();
-  });
+  }
+
+  $.domReady(isInstalled);
 
 }());

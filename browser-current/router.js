@@ -16,12 +16,17 @@
   function packageApp(app) {
     app.get("/applist", nabPackageList);
     app.get("/installed", nabLocalList);
+    app.get("/alive", itsalive);
     app.post("/install/:packageName", findTarball);
+
+    function itsalive(req, res) {
+      res.end(JSON.stringify({ success: true, message: "It's ALIVE!!!!!"}));
+    }
     function nabPackageList(req,res) {
       request.get(getTarget()).when(function(err, ahr, data) {
         if(err) {
           console.error("Problem contacting update server: ", err);
-          res.end(JSON.stringify({error: true, message: "Unable to contact update server."}));
+          res.end(JSON.stringify({success: false, message: "Unable to contact update server."}));
         }
         res.end(JSON.stringify(data));
       });

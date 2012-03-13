@@ -216,7 +216,7 @@ h4 {
   background-position-x: 0%;
   background-position-y: 0%;
   background-color: #fff;
-  z-index: 100;
+  z-index: 99;
 }
 .inner {
   width: 1024px;
@@ -226,7 +226,7 @@ h4 {
   font: inherit;
 }
 #logo {
-  z-index: 102;
+  z-index: 100;
   float: left;
 }
 #container {
@@ -408,4 +408,55 @@ em {
   vertical-align: middle;
   line-height: 1em;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
+  cursor: pointer;
+}
+#not-installed {
+  position: absolute;
+  display: block;
+  z-index: 100;
+  background-color: #222222;
+  color: #ffffff;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+}
+.download {
+  font-size: 48pt;
+  font-weight: 700;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
+  color: #ffffff;
+  display: block;
+  z-index: 101;
+  background-color: #30d031;
+  border-radius: 20px;
+  width: 8em;
+  height: 3em;
+  text-align: center;
+  padding: 102px 10px 2px 10px;
+  vertical-align: middle;
+  line-height: 1em;
+  box-shadow: 0 0 20px -1px #ffffff;
+  margin: 1em auto;
+  text-shadow: 0 0 33px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+a:link.download,
+a:visited.download,
+a:active.download,
+a:hover.download {
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  background-color: #30d031;
+}
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
+#ni-logo {
+  margin-left: 3em;
+  margin-top: 1em;
+  display: block;
 }
