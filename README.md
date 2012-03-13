@@ -18,8 +18,9 @@ The webserver that runs on the client computer
 
 To build for deployment:
 
-    ???
-    # copies web-client
+    cd client
+    ./mkrelease.sh
+    # builds and copies web-client
 
 server
 ===
