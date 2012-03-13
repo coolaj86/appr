@@ -2,3 +2,4 @@ node_modules/
 browser-current/downloads/*
 browser-current/apps/vhosts/*
 browser-current/public/*
+browser.tgz
