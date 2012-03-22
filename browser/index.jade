@@ -1,8 +1,8 @@
 !!!5
-html
+html(manifest="main.appcache")
   head
-    script(src="appsnap.js")
-    link(rel="stylesheet", type="text/css", href="style.css")
+    script(src="offline-assets/appsnap.js")
+    link(rel="stylesheet", type="text/css", href="offline-assets/style.css")
   body
 
     //
@@ -10,18 +10,18 @@ html
         input.js-search-box 
         button Search
     #not-installed
-      img#ni-logo(src="images/logo.png")
+      img#ni-logo(src="offline-assets/images/logo.png")
       table.doc_columns
       tbody
         tr
           td.content_column
             h1.center It doesn't look like you have SpotterRF Apps installed...
             h3.center Luckily, this is easy to fix. Simply click the download button and run the installer.
-            a.js-download.download(href="/SpotterRFAppsInstaller.exe")
+            a.js-download.download(href="http://apps.spotterrf.com/SpotterRFAppsInstaller.exe")
               | Download
     #header
       .top_wrap
-        img#logo(src="images/logo.png")
+        img#logo(src="offline-assets/images/logo.png")
         .page_head
           | Apps!
     #container

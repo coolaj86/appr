@@ -1,0 +1,21 @@
+!!!5
+html
+  head
+    // script(src="offline-assets/appsnap.js")
+    link(rel="stylesheet", type="text/css", href="style.css")
+  body
+
+    //
+      form#js-search-apps
+        input.js-search-box 
+        button Search
+    #not-installed
+      img#ni-logo(src="images/logo.png")
+      table.doc_columns
+      tbody
+        tr
+          td.content_column
+            h1.center It doesn't look like you have SpotterRF Apps installed...
+            h3.center Luckily, this is easy to fix. Simply click the download button and run the installer.
+            a.js-download.download(href="http://apps.spotterrf.com/SpotterRFAppsInstaller.exe")
+              | Download
