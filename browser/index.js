@@ -46,7 +46,7 @@
     }
 
     appList.forEach(function(appName, index) {
-      var html = '<a class="gobutton" href="http://' + appName + '.local.apps.spotterrf.com:'+ port +'/">'
+      var html = '<a class="gobutton" href="http://'+ location.hostname +':'+ location.port +'/'+ appName +'/">'
                + '   <li class="app ' + extraClasses + '" data-appname="' + appName + '">' + appName + '</li>'
                + '</a>'
         ;
