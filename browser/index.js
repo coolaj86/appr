@@ -8,6 +8,7 @@
     , createSequence = require('sequence')
     , sequence = createSequence()
     , port = 7770
+    , headerHeight = 99
     ;
 
   function populateLists() {
@@ -46,7 +47,7 @@
     }
 
     appList.forEach(function(appName, index) {
-      var html = '<a class="gobutton" href="http://'+ location.hostname +':'+ location.port +'/'+ appName +'/">'
+      var html = '<a class="gobutton" href="http://'+ location.hostname +':'+ location.port +'/#'+ appName +'">'
                + '   <li class="app ' + extraClasses + '" data-appname="' + appName + '">' + appName + '</li>'
                + '</a>'
         ;
@@ -78,7 +79,9 @@
     ev.preventDefault();
     ev.stopPropagation();
     var somewhere = $(this)
-      , goButton = '<a class="gobutton" href="http://' + this.dataset.appname + '.local.apps.spotterrf.com:' + port + '"/>Go!</a>';
+      , goButton = '<a class="gobutton" href="http://'+location.hostname+':'+location.port+'/#' 
+                  + this.dataset.appname
+                  + '"/>Go!</a>';
       ;
     somewhere.removeClass('js-available').addClass('installing').addClass('js-installing');
     request.post('http://localhost:' + port + '/install/'+ this.dataset.appname).when(function (err, ahr, data) {
@@ -112,10 +115,38 @@
       showApps();
     });
   }
+  
+  function fillWithApp() {
+    if(location.hash == "") {
+      return false;
+    }
+    var appName = location.hash.substr(1, location.hash.length)
+      , iframeHtml  = '<iframe id="appshown" src="http://localhost:'+port+'/'+appName+'/"'+'></iframe>'
+      ;
+    console.log('iframehtml:', iframeHtml);
+                    
+    $('#container').hide();
+    $('#show-app').empty();
+    $('#show-app').append(iframeHtml);
+    setIframeHeight('#show-app');
+    $('#show-app').show();
+    $('#back_button').show();
+  }
+
+  function setIframeHeight(selector) {
+    $(selector).css('height', window.innerHeight - headerHeight);
+  }
 
   function showApps() {
     populateLists();
     assignHandlers();
+    fillWithApp();
+    $(window).resize(function() {
+      if(location.hash == "") {
+        return false;
+      }
+      setIframeHeight('#show-app');
+    });
   }
 
   $.domReady(isInstalled);
