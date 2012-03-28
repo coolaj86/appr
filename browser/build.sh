@@ -1,3 +1,4 @@
+#!/bin/bash
 PUBLICTARGET="../web-client"
 OFFLINE="${PUBLICTARGET}/offline-assets"
 

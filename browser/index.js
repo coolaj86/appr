@@ -101,7 +101,7 @@
   }
 
   function backButton(ev) {
-    
+    location.assign(location.protocol + '//' + location.hostname + ':' + location.port + '/'); 
   }
 
 
