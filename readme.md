@@ -11,13 +11,13 @@ support Linux, Macintosh OS X, and Windows 7.
 OS X
 ---
 
-# Restarting the server, and you.
+### Restarting the server, and you.
 To restart the local server, you'll need to run these two commands, in order:
 
     sudo launchctl unload /Library/LaunchDaemons/com.spotterrf.apps.plist
     sudo launchctl load /Library/LaunchDaemons/com.spotterrf.apps.plist
 
-# Deleting applications, and you.
+### Deleting applications, and you.
 To delete an application, you will need to manually remove the files that were
 installed with that application. All applications that Appr installs, are
 located under `/usr/local/lib/spotterrf/mounts/`. You'll be able to find apps,
