@@ -63,6 +63,9 @@
     $(selector).css('height', window.innerHeight - headerHeight);
   }
 
+  function fillWithApp(appName) {
+  }
+
   /*
    *
    *  Event Handlers
@@ -94,14 +97,31 @@
     ev.stopPropagation();
   }
 
-  function reloadWindow(ev) {
-    setTimeout(function() {
-      window.location.reload(true);
-    }, 1);
+  function backButton(ev) {
+    console.log('-----------------> popstate fired: ' + Date.now());
+    //location.assign(location.protocol + '//' + location.hostname + ':' + location.port + '/'); 
   }
 
-  function backButton(ev) {
-    location.assign(location.protocol + '//' + location.hostname + ':' + location.port + '/'); 
+  function loadApp(ev) {
+    doNothing(ev); // Stops propagation, and prevents default.
+    var appName = ev.currentTarget.dataset.appname
+      , iframeHtml  = '<iframe id="appshown" src="http://localhost:'+port+'/'+appName+'/"'+'></iframe>'
+      ;
+    history.pushState(null, appName, '/#' + appName);
+    $('#container').hide();
+    $('#show-app').empty();
+    $('#show-app').append(iframeHtml);
+    setIframeHeight('#show-app');
+    $('#show-app').show();
+    $('#back_button')[0].style.display='block';
+  }
+  function unloadApp(ev) {
+    doNothing(ev);
+    history.pushState(null, 'SpotterRF Apps', '/');
+    $('#back_button')[0].style.display='none';
+    $('#show-app').hide();
+    $('#show-app').empty();
+    $('#container').show();
   }
 
 
@@ -128,7 +148,6 @@
   function showApps() {
     populateLists();
     assignHandlers();
-    fillWithApp();
     $(window).resize(function() {
       if(location.hash == "") {
         return false;
@@ -167,25 +186,8 @@
   function assignHandlers() {
     $('body').delegate('.js-available', 'click', installApp);
     $('body').delegate('.js-installing', 'click', doNothing);
-    $('body').delegate('.js-ready', 'click', reloadWindow);
-    $('body').delegate('#back_button', 'click', backButton);
+    $('body').delegate('#back_button', 'click', unloadApp);
+    $('body').delegate('.js-ready', 'click', loadApp);
+    window.onpopstate = unloadApp;
   }
-
-  function fillWithApp() {
-    if(location.hash == "") {
-      return false;
-    }
-    var appName = location.hash.substr(1, location.hash.length)
-      , iframeHtml  = '<iframe id="appshown" src="http://localhost:'+port+'/'+appName+'/"'+'></iframe>'
-      ;
-    console.log('iframehtml:', iframeHtml);
-                    
-    $('#container').hide();
-    $('#show-app').empty();
-    $('#show-app').append(iframeHtml);
-    setIframeHeight('#show-app');
-    $('#show-app').show();
-    $('#back_button')[0].style.display='block';
-  }
-
 }());
