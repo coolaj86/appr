@@ -15,6 +15,9 @@
     , sequence = createSequence()
     , port = 7770
     , headerHeight = 99
+    , originMatch = "http://localhost:7770"
+    , wiggleTimeoutId = 0
+    , wiggleTimeoutValue = 2500
     ;
 
   /*
@@ -32,7 +35,9 @@
 
     appList.forEach(function(appName, index) {
       var html = '<a class="gobutton" href="http://'+ location.hostname +':'+ location.port +'/#'+ appName +'">'
-               + '   <li class="app ' + extraClasses + '" data-appname="' + appName + '">' + appName + '</li>'
+               + '  <img src="/offline-assets/images/delete-x.png" class="delete-button"'
+               + ' data-appname="' + appName + '" style="display:none" />'
+               + '  <li class="app ' + extraClasses + '" data-appname="' + appName + '">' + appName + '</li>'
                + '</a>'
         ;
       $(target).append(html);
@@ -97,11 +102,6 @@
     ev.stopPropagation();
   }
 
-  function backButton(ev) {
-    console.log('-----------------> popstate fired: ' + Date.now());
-    //location.assign(location.protocol + '//' + location.hostname + ':' + location.port + '/'); 
-  }
-
   function loadApp(ev) {
     doNothing(ev); // Stops propagation, and prevents default.
     var appName = ev.currentTarget.dataset.appname
@@ -113,17 +113,57 @@
     $('#show-app').append(iframeHtml);
     setIframeHeight('#show-app');
     $('#show-app').show();
-    $('#back_button')[0].style.display='block';
+    $('#back_button').show();
   }
   function unloadApp(ev) {
     doNothing(ev);
     history.pushState(null, 'SpotterRF Apps', '/');
-    $('#back_button')[0].style.display='none';
+    $('#back_button').hide();
     $('#show-app').hide();
     $('#show-app').empty();
     $('#container').show();
   }
+  function loadMenu(ev) {
+    // Have to take some extra security precautions because message passing can
+    // be dangerous.
+    if(ev.origin !== originMatch) {
+      console.error("MESSAGE ORIGIN MISMATCH, ABORTING", ev.origin);
+      return;
+    }
+    if(typeof ev.data !== 'object') {
+      console.error("MESSAGE TYPE MISMATCH, ABORTING", ev.data);
+      return;
+    }
+    //TODO implement the menu system.
+  }
 
+  function startWiggle(ev) {
+    $('.js-ready').toggleClass('wiggle');
+    $('.js-currently-installed .delete-button').toggle();
+  }
+  function deleteApp(ev) {
+    var appName = ev.currentTarget.dataset.appname
+      , appObject = $('[data-appname="'+appName+'"]')
+      , appNameArray = []
+      ;
+    appNameArray.push(appName);
+    appObject.addClass('installing').addClass('js-installing');
+    request.post('http://localhost:'+port+'/delete/'+appName).when(function(err, ahr, data) {
+      checkResponse(err,data);
+      try {
+        data = JSON.parse(data);
+      } catch(e) { /*ignore*/ }
+      if(err || !data.success) {
+        console.error('Problem deleting app: ' + err);
+        return;
+      }
+      if(data.success) {
+        startWiggle(null);
+        appObject.remove();
+        appendList('.js-app-list', appNameArray, ['js-available']);
+      }
+    });
+  }
 
   /*
    * 
@@ -188,6 +228,9 @@
     $('body').delegate('.js-installing', 'click', doNothing);
     $('body').delegate('#back_button', 'click', unloadApp);
     $('body').delegate('.js-ready', 'click', loadApp);
+    $('body').delegate('#js-delete-mode', 'click', startWiggle);
+    $('body').delegate('.delete-button', 'click', deleteApp);
+    window.addEventListener('message', loadMenu, false);
     window.onpopstate = unloadApp;
   }
 }());

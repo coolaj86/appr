@@ -54,6 +54,7 @@ CACHE:
 /offline-assets/images/loading.gif
 /offline-assets/images/logo.png
 /offline-assets/images/menu_bg.png
+/offline-assets/images/delete-x.png
 
 # Fonts:
 /offline-assets/fonts/opensans-bold.ttf
@@ -72,6 +73,7 @@ http://localhost:7770/alive
 http://localhost:7770/installed
 http://localhost:7770/applist
 http://localhost:7770/install/
+http://localhost:7770/delete/
 HEREDOCEND
 
 echo " done"

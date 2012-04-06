@@ -35,9 +35,10 @@ html(manifest="main.appcache")
             #js-applists
               .available
                 h2 Available Apps:
+                #js-delete-mode Delete Mode
                 ul.js-app-list
               .installed
                 h2 Installed Apps:
                 ul.js-currently-installed
     #show-app
-    #back_button Back!
+    #back_button(style='display:none') Back!
