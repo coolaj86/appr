@@ -55,6 +55,7 @@ CACHE:
 /offline-assets/images/logo.png
 /offline-assets/images/menu_bg.png
 /offline-assets/images/delete-x.png
+/offline-assets/images/error.png
 
 # Fonts:
 /offline-assets/fonts/opensans-bold.ttf
