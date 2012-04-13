@@ -16,6 +16,15 @@ html
         tr
           td.content_column
             h1.center It doesn't look like you have SpotterRF Apps installed...
-            h3.center Luckily, this is easy to fix. Simply click the download button and run the installer.
-            a.js-download.download(href="http://apps.spotterrf.com/SpotterRFAppsInstaller.exe")
-              | Download
+            h3.center.
+              Luckily, this is easy to fix. Simply click the download button for your OS 
+              and run the installer.
+            .dl-buttons
+              a.js-download.download.windows(href="http://apps.spotterrf.com/SpotterRFAppsInstaller.exe")
+                | Windows
+              a.js-download.download.osx(href="http://apps.spotterrf.com/SpotterRFAppsInstaller.pkg")
+                | Apple OS X
+              a.js-download.download.deb(href="http://apps.spotterrf.com/SpotterRFAppsInstaller.deb")
+                | Debian / Ubuntu
+              a.js-downlaod.download.source(href="http://apps.spotterrf.com/appr_0.1-1.tar.gz")
+                | Source (tar.gz)
