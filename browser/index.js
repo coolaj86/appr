@@ -178,7 +178,8 @@
     request.get('http://localhost:' + port + '/alive', null, { timeout: 1000 }).when(function(err, ahr, data) {
       data = checkResponse(err, data);
       if(!data || !data.success) {
-        $('#not-installed').show();
+        //$('#not-installed').show();
+        window.location = 'http://apps.spotterrf.com/offline-assets/offline.html';
         return false;
       }
       showApps();
