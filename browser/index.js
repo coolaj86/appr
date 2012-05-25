@@ -1,3 +1,4 @@
+/*jshint strict:true node:true es5:true onevar:true laxcomma:true laxbreak:true*/
 (function() {
   "use strict";
 
@@ -117,7 +118,7 @@
   }
   function unloadApp(ev) {
     doNothing(ev);
-    history.pushState(null, 'SpotterRF Apps', '/');
+    history.pushState(null, 'WebApps Center', '/');
     $('#back_button').hide();
     $('#show-app').hide();
     $('#show-app').empty();
@@ -179,7 +180,7 @@
       data = checkResponse(err, data);
       if(!data || !data.success) {
         //$('#not-installed').show();
-        window.location = 'http://apps.spotterrf.com/offline-assets/offline.html';
+        window.location = '/offline-assets/offline.html';
         return false;
       }
       showApps();

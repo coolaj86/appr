@@ -4,5 +4,5 @@ browser-current/downloads/*
 browser-current/apps/vhosts/*
 browser-current/public/*
 browser.tgz
-web-client/
+webclient-deployed/
 client/downloads/*.tar

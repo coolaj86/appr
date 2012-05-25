@@ -1,7 +1,7 @@
 !!!5
 html(manifest="main.appcache")
   head
-    script(src="offline-assets/appsnap.js")
+    script(src="offline-assets/pakmanaged.js")
     link(rel="stylesheet", type="text/css", href="offline-assets/style.css")
   body
 
@@ -15,9 +15,9 @@ html(manifest="main.appcache")
       tbody
         tr
           td.content_column
-            h1.center It doesn't look like you have SpotterRF Apps installed...
+            h1.center It doesn't look like you have WebApps Center installed...
             h3.center Luckily, this is easy to fix. Simply click the download button and run the installer.
-            a.js-download.download(href="http://apps.spotterrf.com/SpotterRFAppsInstaller.exe")
+            a.js-download.download(href="/WebAppsCenterInstaller.exe")
               | Download
     #header
       .top_wrap

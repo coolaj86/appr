@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git://github.com/coolaj86/appr.git"
   },
-  "main": "lib/index",
+  "main": "./index",
   "scripts": {
     "test": "node lib/index"
   },
