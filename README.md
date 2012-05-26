@@ -45,7 +45,8 @@ process to publish an app:
 0. Change directory into `~/src/app-name`
 0. Run any applicable build scripts.
 0. Create a package.json if you haven't already.
+0. Add `publishConfig: { "registry": "http://your-npm-registry" }` to `package.json`
 0. Add the line `registry = http://your-npm-registry` to your ~/.npmrc
-0. Run `npm adduser` and follow the steps.
+0. Run `npm adduser --registry=http://user:pass@your-npm-registry` and follow the steps.
 0. Make sure you're in the `~src/app-name` directory.
 0. Run `npm publish ./`
