@@ -1,10 +1,10 @@
-Controlling The SpotterRF Apps Server
+WebApps Center, and You
 ===
 
 Installation
 ---
 
-The first thing you'll need to do in order to use the SpotterRF Apps Server is install it. 
+The first thing you'll need to do in order to use the WebApps Center is install it. 
 Use one of our patented automagic install applications on your platform of choice. We
 support Linux, Macintosh OS X, and Windows 7.
 
@@ -29,8 +29,8 @@ simply run the following command:
 Be sure to replace `appName` with the name of the app you want to delete.
 Otherwise, you may run into problems down the line.
 
-After the app is removed, you will need to restart the patented SpotterRF
-Apps server. To perform this action, please refer to the information above.
+After the app is removed, you will need to restart the patented WebApps Center.
+To perform this action, please refer to the information above.
 
 Publishing applications, and you.
 ---
