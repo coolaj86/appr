@@ -8,7 +8,8 @@ rm -rf ${PUBLICTARGET}/*
 echo " done"
 
 echo -n "Copying in static files..."
-mkdir -p ${OFFLINE}
+mkdir -p ${PUBLICTARGET}/releases/
+mkdir -p ${OFFLINE}/
 rsync -a static/ ${OFFLINE}/
 echo " done"
 

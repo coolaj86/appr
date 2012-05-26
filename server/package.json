@@ -16,9 +16,11 @@
     "node": ">= 0.6"
   },
   "dependencies": {
-      "semver": "1.x"
-    , "steve": "0.5.9"
-    , "ahr2": "2.x"
+    "semver": "1.x",
+    "steve": "0.5.9",
+    "ahr2": "2.x",
+    "connect_router": "~1.8.6",
+    "fs.extra": "~1.1.1"
   },
   "devDependencies": {}
 }
