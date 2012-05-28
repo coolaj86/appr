@@ -55,11 +55,12 @@
     function nextVersion(req, res, next) {
       res.json(bumpVer(curVer, LEVEL[req.params.level]));
     }
+
     function createVersion(req, res, next) {
       var fws
-        , releaseDir
         , tmpFile = 'delete.me.tmp'
         , authVal = req.headers.authorization.replace(/.*\s*Basic\s*/g, '')
+        , newVer = bumpVer(curVer, LEVEL[req.params.level])
         ;
 
       // Authorization: Basic c29tZXRoaW5na2luZGFzZWNyZXQ6eWtub3c=
@@ -71,35 +72,35 @@
         return;
       }
 
-      fws = fs.createWriteStream(tmpFile);
-      req.pipe(fws);
+      function tellEmHowItIs(e) {
+        if (e) {
+          res.error(e);
+          res.json();
+          return;
+        }
 
-      req.on('end', function () {
-        var newVer
-          ;
+        curVer = newVer;
+        res.json(curVer);
+        res.end();
+      }
 
-        newVer = bumpVer(curVer, LEVEL[req.params.level]);
-        releaseDir = path.join(pkgDir, newVer);
-
+      function moveFile() {
+        var releaseDir = path.join(pkgDir, newVer);
         fs.mkdir(releaseDir, function (e) {
-          var releaseFile = path.join(releaseDir, 'client-' + newVer + '.tgz')
-            ;
-
+          var releaseFile = path.join(releaseDir, 'client-' + newVer + '.tgz');
           fs.move(tmpFile, releaseFile, function (er) {
             // for old versions
-            fs.link(releaseFile, path.join(releaseDir, 'browser.tgz'));
-
-            if (e || er) {
-              res.error(e);
-              res.end();
-              return;
-            }
-
-            curVer = newVer;
-            res.json(curVer);
+            var releaseFileAlias = path.join(releaseDir, 'browser.tgz');
+            fs.link(releaseFile, releaseFileAlias, function (err) {
+              tellEmHowItIs(e || er || err);
+            });
           });
         });
-      });
+      }
+
+      fws = fs.createWriteStream(tmpFile);
+      req.pipe(fws);
+      req.on('end', moveFile);
     }
 
     function router(app) {
@@ -110,7 +111,7 @@
     }
 
     server = connect.createServer()
-      .use(connect.favicon())
+      .use(connect.favicon(path.join(options.publicDir, 'favicon.ico')))
       .use(connect.static(options.publicDir))
       .use(connectRouter(router))
       .use(function (req, res) {
