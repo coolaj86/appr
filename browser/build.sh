@@ -2,12 +2,17 @@
 PUBLICTARGET="../webclient-deployed"
 OFFLINE="${PUBLICTARGET}/offline-assets"
 
+echo -n "Preserving releases..."
+mkdir -p "${PUBLICTARGET}/releases"
+mv "${PUBLICTARGET}/releases" ./
+echo "done"
 
 echo -n "Killing off old cruft..."
 rm -rf ${PUBLICTARGET}/*
 echo " done"
 
 echo -n "Copying in static files..."
+mv ./releases "${PUBLICTARGET}/"
 mkdir -p ${PUBLICTARGET}/releases/
 mkdir -p ${OFFLINE}/
 rsync -a static/ ${OFFLINE}/
