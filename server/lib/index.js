@@ -111,7 +111,7 @@
     }
 
     server = connect.createServer()
-      .use(connect.favicon(path.join(options.publicDir, 'favicon.ico')))
+      .use(connect.favicon(path.join(options.publicDir, 'offline-assets', 'favicon.ico')))
       .use(connect.static(options.publicDir))
       .use(connectRouter(router))
       .use(function (req, res) {

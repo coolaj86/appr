@@ -51,6 +51,9 @@ CACHE:
 # CSS:
 /offline-assets/style.css
 
+# favicon:
+/offline-assets/favicon.ico
+
 # Images:
 /offline-assets/images/header_zebra.png
 /offline-assets/images/loading.gif
