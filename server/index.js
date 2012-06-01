@@ -3,7 +3,7 @@
   "use strict";
 
   var path = require('path')
-    , server = require('./lib/index')
+    , server = require('./server')
         .create({publicDir: path.join(__dirname, '..', 'webclient-deployed')})
     ;
 
