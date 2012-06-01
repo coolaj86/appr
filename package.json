@@ -3,12 +3,12 @@
   "name": "appr",
   "description": "An HTML5 App Store",
   "version": "0.1.0",
-  "homepage": "http://appr.coolaj86.info",
+  "homepage": "http://hurpdurp.com",
   "repository": {
     "type": "git",
     "url": "git://github.com/coolaj86/appr.git"
   },
-  "main": "./index",
+  "main": "./server/server",
   "scripts": {
     "test": "node lib/index"
   },
