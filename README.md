@@ -105,3 +105,15 @@ Management
 ---
 
 0. Going to hurpdurp.com directly will show a list of authorized apps from localhost:8899, which accepts hurpdurp.com as a master (not just a repo)
+
+Apps
+---
+
+Apps should have a 
+
+  * version
+  * install date
+  * upgraded date
+  * channel (stable, beta, developer (only selectable via api))
+  * scope
+  * origin (install source url)
