@@ -62,12 +62,16 @@ The idea is to have an app store similar to the android app store.
 Installation
 ---
 
+MyApp.com as entrypoint
+
 0. I visit myapp.com
 1. myapp.com checks localhost:8899/oauth and fails
 2. myapp.com asks me for a username and password for hurpdurp
 2. myapp.com's client creates a ticket for ip.hurpdurp.com with hurdurp.com/installer
 3. myapp.com asks me to install Appr from hurdupr.com/appr.{exe,pkg,deb}
 4. myapp.com continually polls localhost:8899/init/:ticket
+
+Appr setup via MyApp.com
 
 0. Appr is installed
 1. Appr has no config, so it listens on localhost:8899/init/:ticket
@@ -76,9 +80,13 @@ Installation
 3. hurpdurp.com/register/:ticket only responds when the Origin is localhost:8899
 2. the response passes credentials (the user is pre-logged in on localhost and myapp.com is pre-authorized)
 
+MyApp.com as app
+
 0. I visit myapp.com again
 1. myapp.com checks localhost:8899/oauth and has succeeds with pre-authorization, pre-scoped
 2. I enjoy myapp.com
+
+OtherApp.com as new app
 
 0. I visit otherapp.com
 1. otherapp.com checks localhost:8899/oauth and succeeds
