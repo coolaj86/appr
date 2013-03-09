@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PUBLICTARGET="../webclient-deployed"
+PUBLICTARGET="../public"
 OFFLINE="${PUBLICTARGET}/offline-assets"
 
 
@@ -10,6 +10,7 @@ echo " done"
 echo -n "Copying in static files..."
 mkdir -p ${PUBLICTARGET}/releases/
 mkdir -p ${OFFLINE}/
+rsync -a static/ ${PUBLICTARGET}/
 rsync -a static/ ${OFFLINE}/
 echo " done"
 
@@ -28,6 +29,7 @@ echo " done"
 echo -n "Moving packaged files..."
 mv *.css ${OFFLINE}/
 mv index.html ${PUBLICTARGET}/
+rsync -a *.html ${PUBLICTARGET}/
 mv *.html ${OFFLINE}/
 mv pakmanaged.js ${OFFLINE}/
 #cp -R ./public/ ./windows/

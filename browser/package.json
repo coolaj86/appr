@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git://github.com/SpotterRF/appr.git"
   },
-  "main": "index.js",
+  "main": "lib/browser",
   "engines": {
     "node": ">= 0.6"
   },

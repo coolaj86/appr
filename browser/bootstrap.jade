@@ -1,0 +1,22 @@
+!!! 5
+html
+  head
+    title Web App Center
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    // Bootstrap
+    link(href="css/bootstrap.min.css", rel="stylesheet", media="screen")
+  body
+    div.navbar
+      h1 Welcome to the Web App Store!
+    div.container-fluid
+      div.row-fluid
+        div.span2
+        div.span10
+          include inc/apps
+          include inc/installers
+    div.footer
+    script(src="http://code.jquery.com/jquery.js")
+    //script(src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js")
+    script(src="js/bootstrap.min.js")
+    script(src="js/pure.js")
+    script(src="app.js")
