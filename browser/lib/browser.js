@@ -31,7 +31,7 @@
     if(extraClasses) {
       extraClasses = extraClasses.join(' '); 
     } else { 
-      extraClasses = ""
+      extraClasses = "";
     }
 
     appList.forEach(function(appName, index) {

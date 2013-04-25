@@ -1,44 +1,22 @@
-!!!5
-html(manifest="main.appcache")
+!!! 5
+html
   head
-    script(src="offline-assets/pakmanaged.js")
-    link(rel="stylesheet", type="text/css", href="offline-assets/style.css")
+    title Web App Center
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    // Bootstrap
+    link(href="css/bootstrap.min.css", rel="stylesheet", media="screen")
   body
-
-    //
-      form#js-search-apps
-        input.js-search-box 
-        button Search
-    #not-installed
-      img#ni-logo(src="offline-assets/images/logo.png")
-      table.doc_columns
-      tbody
-        tr
-          td.content_column
-            h1.center It doesn't look like you have WebApps Center installed...
-            h3.center Luckily, this is easy to fix. Simply click the download button and run the installer.
-            a.js-download.download(href="/WebAppsCenterInstaller.exe")
-              | Download
-    #header
-      .top_wrap
-        img#logo(src="offline-assets/images/logo.png")
-        .page_head
-          | Apps!
-    #container
-      table.doc_columns
-      tbody
-        tr
-          td.menu_column
-            menu
-              ul
-          td.content_column
-            #js-applists
-              .available
-                h2 Available Apps:
-                ul.js-app-list
-              .installed
-                #js-delete-mode.delete-mode Delete Mode
-                h2 Installed Apps:
-                ul.js-currently-installed
-    #show-app
-    #back_button(style='display:none') Back!
+    div.navbar
+      h1 Welcome to the Web App Store!
+    div.container-fluid
+      div.row-fluid
+        div.span2
+        div.span10
+          include inc/apps
+          include inc/installers
+    div.footer
+    script(src="http://code.jquery.com/jquery.js")
+    //script(src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js")
+    script(src="js/bootstrap.min.js")
+    script(src="js/pure.js")
+    script(src="app.js")

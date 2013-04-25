@@ -1,0 +1,44 @@
+!!!5
+html(manifest="main.appcache")
+  head
+    script(src="offline-assets/pakmanaged.js")
+    link(rel="stylesheet", type="text/css", href="offline-assets/style.css")
+  body
+
+    //
+      form#js-search-apps
+        input.js-search-box 
+        button Search
+    #not-installed
+      img#ni-logo(src="offline-assets/images/logo.png")
+      table.doc_columns
+      tbody
+        tr
+          td.content_column
+            h1.center It doesn't look like you have WebApps Center installed...
+            h3.center Luckily, this is easy to fix. Simply click the download button and run the installer.
+            a.js-download.download(href="/WebAppsCenterInstaller.exe")
+              | Download
+    #header
+      .top_wrap
+        img#logo(src="offline-assets/images/logo.png")
+        .page_head
+          | Apps!
+    #container
+      table.doc_columns
+      tbody
+        tr
+          td.menu_column
+            menu
+              ul
+          td.content_column
+            #js-applists
+              .available
+                h2 Available Apps:
+                ul.js-app-list
+              .installed
+                #js-delete-mode.delete-mode Delete Mode
+                h2 Installed Apps:
+                ul.js-currently-installed
+    #show-app
+    #back_button(style='display:none') Back!

@@ -1,6 +1,12 @@
 WebApps Center, and You
 ===
 
+    GET /webappcenter/update?version=1.0.0&channel=beta
+    ; get a version and url to which you can safetly upgrade
+    ; provide the version of software you're running
+    ; provide a channel such as 'beta' or 'alpha' (default is 'stable')
+    ; returns a `result` with a semver string or null
+
 Installation
 ---
 

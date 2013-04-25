@@ -3,7 +3,7 @@
 (function () {
   "use strict";
 
-  var port = process.argv[2] || 3999 || 0
+  var port = process.argv[2] || 3000 || 0
     , app = require('../server')
     ;
 
