@@ -29,7 +29,7 @@ simply run the following command:
 Be sure to replace `appName` with the name of the app you want to delete.
 Otherwise, you may run into problems down the line.
 
-After the app is removed, you will need to restart the patented SpotterRF
+After the app is removed, you will need to restart the non-patented HurpDurp
 Apps server. To perform this action, please refer to the information above.
 
 Publishing applications, and you.
