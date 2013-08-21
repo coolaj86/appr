@@ -1,61 +1,43 @@
-Controlling The HurpDurp Apps Server
+Web App Center
 ===
 
-    GET /webappcenter/update?version=1.0.0&channel=beta
-    ; get a version and url to which you can safetly upgrade
-    ; provide the version of software you're running
-    ; provide a channel such as 'beta' or 'alpha' (default is 'stable')
-    ; returns a `result` with a semver string or null
+This is the central web app center server, which can be deployed on any domain.
+
+It provides updates to the local web app center installation and allows
+configuration of local settings.
 
 Installation
----
+===
 
-The first thing you'll need to do in order to use the HurpDurp Apps Server is install it. 
-Use one of our patented automagic install applications on your platform of choice. We
-support Linux, Macintosh OS X, and Windows 7.
+    git clone https://github.com/coolaj86/appr.git
+    pushd appr
+    npm install
+    npm install -g served grunt-cli jshint less jade
+    grunt build
+    served 3000 ./server
 
-OS X
----
+Usage
+===
 
-### Restarting the server, and you.
-To restart the local server, you'll need to run these two commands, in order:
+Visit <http://localhost:3000>, download webappcenter, and install some apps.
 
-    sudo launchctl unload /Library/LaunchDaemons/com.hurpdurp.apps.plist
-    sudo launchctl load /Library/LaunchDaemons/com.hurpdurp.apps.plist
+API
+===
 
-### Deleting applications, and you.
-To delete an application, you will need to manually remove the files that were
-installed with that application. All applications that Appr installs, are
-located under `/usr/local/lib/hurpdurp/mounts/`. You'll be able to find apps,
-such as the Tracker Display installed there. To delete one of these apps,
-simply run the following command:
+### GET /webappcenter/update?version=1.0.0&channel=beta
 
-    sudo rm -rf /usr/local/lib/hurpdurp/mounts/appName
+Returns a url to a newer installable version of Web App Center or an error
+such as "you're already up-to-date" or "no versions available".
 
-Be sure to replace `appName` with the name of the app you want to delete.
-Otherwise, you may run into problems down the line.
+  * `version` required, should be the version you currently have installed
+  * `channel` optional, assumes 'stable' unless 'beta' or 'alpha' are provided
 
-After the app is removed, you will need to restart the patented WebApps Center.
-To perform this action, please refer to the information above.
+Sample result:
 
-Publishing applications, and you.
----
-
-Boy skippy, it couldn't be more easy to publish applications to the Appr
-store. Follow this easy 12 step
-process to publish an app:
-
-0. Login to your trusty sidekick server.
-0. Create a `~/src` directory, if you haven't already.
-0. Copy your application files to a directory named `~/src/app-name`.
-0. Change directory into `~/src/app-name`
-0. Run any applicable build scripts.
-0. Create a package.json if you haven't already.
-0. Add `publishConfig: { "registry": "http://your-npm-registry" }` to `package.json`
-0. Add the line `registry = http://your-npm-registry` to your ~/.npmrc
-0. Run `npm adduser --registry=http://user:pass@your-npm-registry` and follow the steps.
-0. Make sure you're in the `~src/app-name` directory.
-0. Run `npm publish ./`
+  { "semver": "0.2.0-beta"
+  , "mtime": "2013-04-25T05:09:48.000Z"
+  , "href": "/releases/0.2.0-beta/data.tar.gz"
+  }
 
 Grand Plan
 ===
@@ -121,5 +103,58 @@ Apps should have a
   * install date
   * upgraded date
   * channel (stable, beta, developer (only selectable via api))
-  * scope
+  * scope (exec, fs, http, net, etc)
   * origin (install source url)
+
+Old Docs
+===
+
+Installation
+---
+
+The first thing you'll need to do in order to use the HurpDurp Apps Server is install it. 
+Use one of our patented automagic install applications on your platform of choice. We
+support Linux, Macintosh OS X, and Windows 7.
+
+OS X
+---
+
+### Restarting the server, and you.
+To restart the local server, you'll need to run these two commands, in order:
+
+    sudo launchctl unload /Library/LaunchDaemons/com.hurpdurp.apps.plist
+    sudo launchctl load /Library/LaunchDaemons/com.hurpdurp.apps.plist
+
+### Deleting applications, and you.
+To delete an application, you will need to manually remove the files that were
+installed with that application. All applications that Appr installs, are
+located under `/usr/local/lib/hurpdurp/mounts/`. You'll be able to find apps,
+such as the Tracker Display installed there. To delete one of these apps,
+simply run the following command:
+
+    sudo rm -rf /usr/local/lib/hurpdurp/mounts/appName
+
+Be sure to replace `appName` with the name of the app you want to delete.
+Otherwise, you may run into problems down the line.
+
+After the app is removed, you will need to restart the patented WebApps Center.
+To perform this action, please refer to the information above.
+
+Publishing applications, and you.
+---
+
+Boy skippy, it couldn't be more easy to publish applications to the Appr
+store. Follow this easy 12 step
+process to publish an app:
+
+0. Login to your trusty sidekick server.
+0. Create a `~/src` directory, if you haven't already.
+0. Copy your application files to a directory named `~/src/app-name`.
+0. Change directory into `~/src/app-name`
+0. Run any applicable build scripts.
+0. Create a package.json if you haven't already.
+0. Add `publishConfig: { "registry": "http://your-npm-registry" }` to `package.json`
+0. Add the line `registry = http://your-npm-registry` to your ~/.npmrc
+0. Run `npm adduser --registry=http://user:pass@your-npm-registry` and follow the steps.
+0. Make sure you're in the `~src/app-name` directory.
+0. Run `npm publish ./`

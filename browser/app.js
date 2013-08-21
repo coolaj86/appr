@@ -1,6 +1,3 @@
-/*jshint node:true, es5:true, browser:true, jquery:true,
-onevar:true, indent:2, laxcomma:true, laxbreak:true,
-eqeqeq:true, immed:true, undef:true, unused:true, latedef:true */
 (function () {
   "use strict";
 
@@ -8,8 +5,11 @@ eqeqeq:true, immed:true, undef:true, unused:true, latedef:true */
     , domReady = window.jQuery
     , pure = window.pure
     , renderApps
-    , localServer = 'http://localhost:8899'
-    , mainAppName = 'webappcenter-client'
+    , webappcenter = 
+      { "host": "localhost:8899"
+      , "pathname": "webappinstaller"
+      , "protocol": "http"
+      }
     ;
 
   function highlightInstaller(platform) {
@@ -47,47 +47,78 @@ eqeqeq:true, immed:true, undef:true, unused:true, latedef:true */
   }
 
   function initialize() {
-    $.ajax(localServer + '/' + mainAppName + '/init',
+    $.ajax( webappcenter.protocol + '://' 
+        + webappcenter.host
+        + '/' + webappcenter.pathname
+        + '/init',
       { "type": "POST"
-      , "dataType": "application/json; utf-8"
-      , "contentType": ""
+      , "dataType": "json"
+      , "contentType": "application/json; utf-8"
+      , "data": JSON.stringify(
+                  { "master":
+                    { hostname: "webappinstaller.com"
+                    , port: 3000
+                    , channel: "alpha"
+                    }
+                  , "preauthorize":
+                    [ { "name": "mediabox"
+                      , "cname": "com.getmediabox.mediabox"
+                      , "origin": "getmediabox.com"
+                      , "channel": "beta"
+                      , "updatesUrl": "http://getmediabox.com/webappcenter/update"
+                      , "downloadUrl": "http://getmediabox.com/download/latest/mb.tgz"
+                      , "scopes": ["system/fs", "system/net", "webappcenter/update"]
+                      , "license": "APACHEv2"
+                      }
+                    ]
+                })
       , "success": function (data) {
-            if (!data.success) {
-              window.alert("The installation failed. That's no bueno.");
-              return;
-            }
-            testForAppCenter();
-            console.log('WAC installed & initialized');
-            $('.js-thanks').show();
-          }
-        , "error": function () {
+          if (data.errors && data.errors.length) {
+            console.error(data);
             window.alert("The installation failed. That's no bueno.");
-            //$('.js-error').show();
+            return;
           }
+          setTimeout(function () {
+            testForAppCenter();
+          }, 5 * 1000);
+          console.log('WAC installed & initialized');
+          $('.js-thanks').show();
+        }
+      , "error": function () {
+          console.error(arguments);
+          window.alert("The installation failed via HTTP error. That's no bueno.");
+          //$('.js-error').show();
+        }
       }
     );
   }
 
   function pollToInitialize() {
-    $.ajax(localServer + '/' + mainAppName + '/init',
-        { "success": function (data) {
-            // May pre-initialize or no
-            if (!data.initialized) {
-              initialize();
-              return;
-            }
-            testForAppCenter();
+    $.ajax(webappcenter.protocol + '://'
+        + webappcenter.host
+        + '/' + webappcenter.pathname
+        + '/init',
+      { "success": function (data) {
+          // May pre-initialize or no
+          if (!data.initialized) {
+            initialize();
+            return;
           }
-        , "error": function () {
-            console.log('WAC still not installed');
-            setTimeout(pollToInitialize, 5000);
-          }
+          testForAppCenter();
         }
+      , "error": function () {
+          console.log('WAC still not installed');
+          setTimeout(pollToInitialize, 5000);
+        }
+      }
     );
   }
 
   function testForAppCenter() {
-    $.ajax(localServer + '/' + mainAppName + '/apps',
+    $.ajax(webappcenter.protocol + '://'
+        + webappcenter.host
+        + '/' + webappcenter.pathname
+        + '/apps',
       { "success": function (data) {
             console.log('WAC installed', data);
             domReady(function () {
